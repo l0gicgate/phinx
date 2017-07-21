@@ -191,6 +191,8 @@ abstract class AbstractCommand extends Command
      */
     protected function locateConfigFile(InputInterface $input)
     {
+        global $phinxEnv;
+        $phinxEnv = $input->getOption('environment');
         $configFile = $input->getOption('configuration');
 
         $useDefault = false;
@@ -245,10 +247,10 @@ abstract class AbstractCommand extends Command
             switch (strtolower($extension)) {
                 case 'json':
                     $parser = 'json';
-                    break;
+                break;
                 case 'php':
                     $parser = 'php';
-                    break;
+                break;
                 case 'yml':
                 default:
                     $parser = 'yaml';
@@ -258,13 +260,13 @@ abstract class AbstractCommand extends Command
         switch (strtolower($parser)) {
             case 'json':
                 $config = Config::fromJson($configFilePath);
-                break;
+            break;
             case 'php':
                 $config = Config::fromPhp($configFilePath);
-                break;
+            break;
             case 'yaml':
                 $config = Config::fromYaml($configFilePath);
-                break;
+            break;
             default:
                 throw new \InvalidArgumentException(sprintf('\'%s\' is not a valid parser.', $parser));
         }
