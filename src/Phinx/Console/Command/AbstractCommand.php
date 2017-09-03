@@ -191,8 +191,10 @@ abstract class AbstractCommand extends Command
      */
     protected function locateConfigFile(InputInterface $input)
     {
-        global $phinxEnv;
-        $phinxEnv = $input->getOption('environment');
+        if ($input->hasOption('envinronment')) {
+            global $phinxEnv;
+            $phinxEnv = $input->getOption('environment');
+        }
         $configFile = $input->getOption('configuration');
 
         $useDefault = false;
