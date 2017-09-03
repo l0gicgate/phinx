@@ -96,6 +96,7 @@ class Environment
     {
         $startTime = time();
         $direction = ($direction === MigrationInterface::UP) ? MigrationInterface::UP : MigrationInterface::DOWN;
+        $migration->setDirection($direction);
         $migration->setAdapter($this->getAdapter());
 
         // begin the transaction if the adapter supports it
@@ -114,12 +115,12 @@ class Environment
                     ->getWrapper('proxy', $this->getAdapter());
                 $migration->setAdapter($proxyAdapter);
                 /** @noinspection PhpUndefinedMethodInspection */
-                $migration->change($direction);
+                $migration->change();
                 $proxyAdapter->executeInvertedCommands();
                 $migration->setAdapter($this->getAdapter());
             } else {
                 /** @noinspection PhpUndefinedMethodInspection */
-                $migration->change($direction);
+                $migration->change();
             }
         } else {
             $migration->{$direction}();

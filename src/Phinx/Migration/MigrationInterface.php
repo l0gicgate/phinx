@@ -70,6 +70,17 @@ interface MigrationInterface
     public function down();
 
     /**
+     * @param $direction
+     * @return void
+     */
+    public function setDirection($direction);
+
+    /**
+     * @return string
+     */
+    public function getDirection();
+
+    /**
      * Sets the database adapter.
      *
      * @param AdapterInterface $adapter Database Adapter

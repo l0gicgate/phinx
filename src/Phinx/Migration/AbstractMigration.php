@@ -46,6 +46,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class AbstractMigration implements MigrationInterface
 {
     /**
+     * @var string
+     */
+    protected $direction;
+
+    /**
      * @var float
      */
     protected $version;
@@ -106,6 +111,22 @@ abstract class AbstractMigration implements MigrationInterface
      */
     public function down()
     {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDirection($direction)
+    {
+        $this->direction = $direction;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDirection()
+    {
+        return $this->direction;
     }
 
     /**
